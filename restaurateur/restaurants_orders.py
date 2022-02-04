@@ -5,7 +5,7 @@ def add_restaurants_orders(restaurants, orders):
     orders_restaurants = {}
     for order in orders:
         order_products = []
-        for order_product in order.order.prefetch_related('product'):
+        for order_product in order.order_product.prefetch_related('product'):
             order_products.append(order_product.product.name)
         restaurant_matches_count = {}
         for restaurant in restaurants:

@@ -102,7 +102,7 @@ class Product(models.Model):
 class CostQuerySet(models.QuerySet):
     def count_price(self):
         total_price = self.annotate(
-            total_price=Sum(F('order__quantity') * F('order__fixed_price')))
+            total_price=Sum(F('order_product__quantity') * F('order_product__fixed_price')))
         return total_price
 
 
@@ -148,7 +148,7 @@ class Order(models.Model):
         Restaurant,
         null=True,
         blank=True,
-        related_name='restaurant',
+        related_name='orders',
         on_delete=models.CASCADE,
         verbose_name='ресторан'
     )
@@ -192,18 +192,16 @@ class Order(models.Model):
 
 
 class OrderProduct(models.Model):
-    name = models.ForeignKey(
+    order = models.ForeignKey(
         Order,
-        related_name='order',
+        related_name='order_product',
         verbose_name='заказчик',
         on_delete=models.CASCADE,
-        null=True,
     )
     product = models.ForeignKey(
         Product,
         verbose_name='Товар',
-        related_name='order',
-        null=True,
+        related_name='order_product',
         on_delete=models.CASCADE,
     )
     quantity = models.IntegerField(
