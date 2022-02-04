@@ -123,16 +123,16 @@ class Order(models.Model):
     ]
     firstname = models.CharField(
         'Имя',
-        max_length=10,
+        max_length=35,
     )
     lastname = models.CharField(
         'Фамилия',
-        max_length=15,
+        max_length=35,
     )
     phonenumber = PhoneNumberField('Номер телефона')
     address = models.CharField(
         'Адрес доставки',
-        max_length=30,
+        max_length=100,
     )
     status_order = models.CharField(
         'Статус заказа',
