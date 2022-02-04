@@ -129,7 +129,10 @@ class Order(models.Model):
         'Фамилия',
         max_length=35,
     )
-    phonenumber = PhoneNumberField('Номер телефона')
+    phonenumber = PhoneNumberField(
+        'Номер телефона',
+        db_index=True
+    )
     address = models.CharField(
         'Адрес доставки',
         max_length=100,
