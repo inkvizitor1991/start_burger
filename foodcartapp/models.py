@@ -159,7 +159,7 @@ class Order(models.Model):
         max_length=30,
         db_index=True
     )
-    comment = models.CharField(
+    comment = models.TextField(
         'Комментарий',
         max_length=200,
         blank=True,
