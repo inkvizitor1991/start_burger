@@ -173,11 +173,13 @@ class Order(models.Model):
         'Дата звонка',
         db_index=True,
         null=True,
+        blank=True,
     )
     delivered_at = models.DateTimeField(
         'Дата доставки',
         db_index=True,
         null=True,
+        blank=True,
     )
     objects = CostQuerySet.as_manager()
 
@@ -196,14 +198,12 @@ class OrderProduct(models.Model):
         verbose_name='заказчик',
         on_delete=models.CASCADE,
         null=True,
-        blank=True,
     )
     product = models.ForeignKey(
         Product,
         verbose_name='Товар',
         related_name='order',
         null=True,
-        blank=True,
         on_delete=models.CASCADE,
     )
     quantity = models.IntegerField(
