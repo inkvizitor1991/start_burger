@@ -33,10 +33,9 @@ def calculate_distance(restaurant, order):
     coordinates = Coordinates.objects.filter(address=order).first()
     if not coordinates:
         apikey = os.environ.get('GEOCODER_API')
-        restaurant_lon, restaurant_lat = fetch_coordinates(apikey,restaurant.address)
         order_lon, order_lat = fetch_coordinates(apikey, order)
-        restaurant_coords = (restaurant_lat, restaurant_lon)
-        order_coords = (order_lat, order_lon)
+        restaurant_coords = restaurant.lat, restaurant.lon
+        order_coords = order_lat, order_lon
         Coordinates.objects.create(
             launch_geocoder_date= datetime.now(),
             address=order,
@@ -44,8 +43,8 @@ def calculate_distance(restaurant, order):
             lon=order_lon,
         )
     else:
-        restaurant_coords = (restaurant.lat, restaurant.lon)
-        order_coords = (coordinates.lat, coordinates.lon)
+        restaurant_coords = restaurant.lat, restaurant.lon
+        order_coords = coordinates.lat, coordinates.lon
     order_distance_km = round(
         distance.distance(restaurant_coords, order_coords).km, 3)
     return order_distance_km
