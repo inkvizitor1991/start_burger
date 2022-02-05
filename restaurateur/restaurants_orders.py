@@ -8,6 +8,7 @@ def add_restaurants_orders(restaurants, orders):
         for order_product in order.order_product.prefetch_related('product'):
             order_products.append(order_product.product.name)
         restaurant_matches_count = {}
+
         for restaurant in restaurants:
             if not restaurant.product.name in order_products:
                 continue
@@ -21,6 +22,7 @@ def add_restaurants_orders(restaurants, orders):
             order.save()
             calculated_distance = calculate_distance(
                 restaurant.restaurant, order.address)
+
             orders_restaurants[order.id] = sorted(
                 orders_restaurants.get(order.id, []) + [
                     (restaurant.restaurant.name, calculated_distance)],
