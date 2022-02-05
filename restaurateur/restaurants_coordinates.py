@@ -1,4 +1,3 @@
-import os
 import requests
 
 from datetime import datetime
@@ -8,7 +7,6 @@ from annoying.functions import get_object_or_None
 
 from coordinates.models import Coordinates
 
-load_dotenv()
 
 
 def fetch_coordinates(apikey, address):
@@ -30,10 +28,9 @@ def fetch_coordinates(apikey, address):
     return lon, lat
 
 
-def calculate_distance(restaurant, order):
+def calculate_distance(restaurant, order, apikey):
     coordinates = get_object_or_None(Coordinates, address=order)
     if not coordinates:
-        apikey = os.environ.get('GEOCODER_API')
         restaurant_coords = restaurant.lat, restaurant.lon
         order_lon, order_lat = fetch_coordinates(apikey, order)
         order_coords = order_lat, order_lon

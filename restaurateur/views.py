@@ -9,6 +9,8 @@ from django.contrib.auth import views as auth_views
 
 from foodcartapp.models import Product, Restaurant, Order, RestaurantMenuItem
 from restaurateur.restaurants_orders import add_restaurants_orders
+from star_burger.settings import GEOCODER_API
+
 
 
 class Login(forms.Form):
@@ -105,7 +107,7 @@ def view_orders(request):
         status_order='unprocessed').count_price().prefetch_related(
         'restaurant')
 
-    orders_restaurants = add_restaurants_orders(restaurants, orders)
+    orders_restaurants = add_restaurants_orders(restaurants, orders, GEOCODER_API)
     return render(request, template_name='order_items.html', context={
         'order_items': orders,
         'orders_restaurants': orders_restaurants

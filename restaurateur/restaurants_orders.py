@@ -1,7 +1,7 @@
 from restaurateur.restaurants_coordinates import calculate_distance
 
 
-def add_restaurants_orders(restaurants, orders):
+def add_restaurants_orders(restaurants, orders, apikey):
     orders_restaurants = {}
     for order in orders:
         order_products = []
@@ -21,7 +21,7 @@ def add_restaurants_orders(restaurants, orders):
             order.restaurant = restaurant.restaurant
             order.save()
             calculated_distance = calculate_distance(
-                restaurant.restaurant, order.address)
+                restaurant.restaurant, order.address, apikey)
 
             orders_restaurants[order.id] = sorted(
                 orders_restaurants.get(order.id, []) + [
