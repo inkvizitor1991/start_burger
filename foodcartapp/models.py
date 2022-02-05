@@ -206,14 +206,13 @@ class OrderProduct(models.Model):
     )
     quantity = models.IntegerField(
         'количество',
-        default=0
+        validators=[MinValueValidator(1)]
     )
     fixed_price = models.DecimalField(
         'фиксированная цена',
         max_digits=8,
         decimal_places=2,
         validators=[MinValueValidator(0)],
-        default=0
     )
 
     class Meta:
