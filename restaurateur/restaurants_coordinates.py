@@ -8,6 +8,9 @@ from annoying.functions import get_object_or_None
 from coordinates.models import Coordinates
 
 
+class CoordinatesError(Exception):
+    pass
+
 
 def fetch_coordinates(apikey, address):
     base_url = "https://geocode-maps.yandex.ru/1.x"
@@ -32,12 +35,15 @@ def calculate_distance(restaurant, address, apikey):
     coordinates = get_object_or_None(Coordinates, address=address)
     if not coordinates:
         restaurant_coords = restaurant.lat, restaurant.lon
-        order_lon, order_lat = fetch_coordinates(apikey, address)
-        order_coords = order_lat, order_lon
+        try:
+            order_coords = fetch_coordinates(apikey, address)
+        except CoordinatesError:
+            print('Не удалось высчитать координаты.')
+            return None
         if order_coords is None:
-            order_distance_km = 'check the coordinates'
-            return order_distance_km
+            return None
 
+        order_lon, order_lat = order_coords
         Coordinates.objects.create(
             launch_geocoder_date=datetime.now(),
             address=address,
