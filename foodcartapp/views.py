@@ -77,8 +77,9 @@ def register_order(request):
 
     for product in person_order['products']:
         OrderProduct.objects.create(
+            order=order,
             product=product['product'],
             quantity=product['quantity'],
-            name=order,
+            fixed_price=product['fixed_price']
         )
     return Response(serializer.data)

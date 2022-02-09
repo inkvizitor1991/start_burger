@@ -16,10 +16,8 @@ def add_restaurants_orders(restaurants_menu, orders, apikey):
                 restaurant_menu.restaurant.name, 0)
             restaurant_matches_count[
                 restaurant_menu.restaurant.name] = matches_number + 1
-            if not restaurant_matches_count[restaurant_menu.restaurant.name] >= len(order_products):
+            if not restaurant_matches_count[restaurant_menu.restaurant.name] == len(order_products):
                 continue
-            order.restaurant = restaurant_menu.restaurant
-            order.save()
             calculated_distance = calculate_distance(
                 restaurant_menu.restaurant, order.address, apikey)
 

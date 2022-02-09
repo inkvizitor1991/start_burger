@@ -7,7 +7,7 @@ from .models import Order, OrderProduct
 class ParticipantSerializer(ModelSerializer):
     class Meta:
         model = OrderProduct
-        fields = ['product', 'quantity']
+        fields = ['product', 'quantity', 'fixed_price']
 
 
 class ApplicationSerializer(ModelSerializer):
