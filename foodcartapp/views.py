@@ -8,7 +8,6 @@ from .models import Product, Order, OrderProduct
 from .serializer import ApplicationSerializer
 
 
-
 def banners_list_api(request):
     # FIXME move data to db?
     return JsonResponse([
@@ -75,11 +74,15 @@ def register_order(request):
         address=person_order['address']
     )
 
-    for product in person_order['products']:
+    order_products = [
         OrderProduct.objects.create(
             order=order,
             product=product['product'],
             quantity=product['quantity'],
             fixed_price=product['fixed_price']
         )
+        for product in person_order['products']
+    ]
+    OrderProduct.objects.bulk_create(order_products)
+
     return Response(serializer.data)
