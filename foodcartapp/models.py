@@ -162,7 +162,6 @@ class Order(models.Model):
     comment = models.TextField(
         'Комментарий',
         max_length=200,
-        blank=True,
     )
     registered_at = models.DateTimeField(
         'Дата оформления заказа',
@@ -194,14 +193,14 @@ class Order(models.Model):
 class OrderProduct(models.Model):
     order = models.ForeignKey(
         Order,
-        related_name='order_product',
+        related_name='order_products',
         verbose_name='заказчик',
         on_delete=models.CASCADE,
     )
     product = models.ForeignKey(
         Product,
         verbose_name='Товар',
-        related_name='order_product',
+        related_name='order_products',
         on_delete=models.CASCADE,
     )
     quantity = models.IntegerField(
