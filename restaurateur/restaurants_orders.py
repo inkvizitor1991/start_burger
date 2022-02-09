@@ -1,7 +1,7 @@
 from restaurateur.restaurants_coordinates import calculate_distance
 
 
-def add_restaurants_orders(restaurants, orders, apikey):
+def add_restaurants_orders(restaurants_menu, orders, apikey):
     orders_restaurants = {}
     for order in orders:
         order_products = []
@@ -9,22 +9,22 @@ def add_restaurants_orders(restaurants, orders, apikey):
             order_products.append(order_product.product.name)
         restaurant_matches_count = {}
 
-        for restaurant in restaurants:
-            if not restaurant.product.name in order_products:
+        for restaurant_menu in restaurants_menu:
+            if not restaurant_menu.product.name in order_products:
                 continue
             matches_number = restaurant_matches_count.get(
-                restaurant.restaurant.name, 0)
+                restaurant_menu.restaurant.name, 0)
             restaurant_matches_count[
-                restaurant.restaurant.name] = matches_number + 1
-            if not restaurant_matches_count[restaurant.restaurant.name] >= len(order_products):
+                restaurant_menu.restaurant.name] = matches_number + 1
+            if not restaurant_matches_count[restaurant_menu.restaurant.name] >= len(order_products):
                 continue
-            order.restaurant = restaurant.restaurant
+            order.restaurant = restaurant_menu.restaurant
             order.save()
             calculated_distance = calculate_distance(
-                restaurant.restaurant, order.address, apikey)
+                restaurant_menu.restaurant, order.address, apikey)
 
             orders_restaurants[order.id] = sorted(
                 orders_restaurants.get(order.id, []) + [
-                    (restaurant.restaurant.name, calculated_distance)],
+                    (restaurant_menu.restaurant.name, calculated_distance)],
                 key=lambda restaurant: restaurant[1])
     return orders_restaurants

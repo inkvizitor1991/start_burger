@@ -100,14 +100,14 @@ def view_restaurants(request):
 
 @user_passes_test(is_manager, login_url='restaurateur:login')
 def view_orders(request):
-    restaurants = RestaurantMenuItem.objects.filter(
+    restaurants_menu = RestaurantMenuItem.objects.filter(
         availability=True).prefetch_related('restaurant', 'product')
 
     orders = Order.objects.filter(
         status_order='unprocessed').count_price().prefetch_related(
         'restaurant')
 
-    orders_restaurants = add_restaurants_orders(restaurants, orders, GEOCODER_API)
+    orders_restaurants = add_restaurants_orders(restaurants_menu, orders, GEOCODER_API)
     return render(request, template_name='order_items.html', context={
         'order_items': orders,
         'orders_restaurants': orders_restaurants

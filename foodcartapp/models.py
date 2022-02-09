@@ -102,7 +102,7 @@ class Product(models.Model):
 class CostQuerySet(models.QuerySet):
     def count_price(self):
         total_price = self.annotate(
-            total_price=Sum(F('order_product__quantity') * F('order_product__fixed_price')))
+            total_price=Sum(F('order_products__quantity') * F('order_products__fixed_price')))
         return total_price
 
 

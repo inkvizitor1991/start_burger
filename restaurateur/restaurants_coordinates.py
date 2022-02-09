@@ -28,11 +28,11 @@ def fetch_coordinates(apikey, address):
     return lon, lat
 
 
-def calculate_distance(restaurant, order, apikey):
-    coordinates = get_object_or_None(Coordinates, address=order)
+def calculate_distance(restaurant, address, apikey):
+    coordinates = get_object_or_None(Coordinates, address=address)
     if not coordinates:
         restaurant_coords = restaurant.lat, restaurant.lon
-        order_lon, order_lat = fetch_coordinates(apikey, order)
+        order_lon, order_lat = fetch_coordinates(apikey, address)
         order_coords = order_lat, order_lon
         if order_coords is None:
             order_distance_km = 'check the coordinates'
@@ -40,7 +40,7 @@ def calculate_distance(restaurant, order, apikey):
 
         Coordinates.objects.create(
             launch_geocoder_date=datetime.now(),
-            address=order,
+            address=address,
             lat=order_lat,
             lon=order_lon,
         )
