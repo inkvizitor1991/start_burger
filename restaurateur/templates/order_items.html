@@ -41,13 +41,11 @@
         <td>
           <details>
             <summary>Детали</summary>
-          {% for orders_ids, restaurants in orders_restaurants.items %}
-            {% if item.id == orders_ids %}
-                {% for restaurant, distance in restaurants %}
-                  <li>{{ restaurant }} – {{ distance }} км.</li>
-                {% endfor %}
-            {% endif %}
+
+            {% for restaurant, distance in item.orders_restaurant %}
+              <li>{{ restaurant }} – {{ distance }} км.</li>
             {% endfor %}
+
           </details>
         </td>
       </tr>

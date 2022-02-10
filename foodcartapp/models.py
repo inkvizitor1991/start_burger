@@ -5,6 +5,9 @@ from django.utils import timezone
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+from restaurateur.restaurants_coordinates import calculate_distance
+from star_burger.settings import GEOCODER_API
+
 
 class Restaurant(models.Model):
     name = models.CharField(
@@ -102,8 +105,36 @@ class Product(models.Model):
 class CostQuerySet(models.QuerySet):
     def count_price(self):
         total_price = self.annotate(
-            total_price=Sum(F('order_products__quantity') * F('order_products__fixed_price')))
+            total_price=Sum(F('order_products__quantity') * F(
+                'order_products__fixed_price')))
         return total_price
+
+    def add_restaurants_orders(self, restaurants_menu):
+        for order in self:
+            order_products = []
+            for order_product in order.order_products.prefetch_related('product'):
+                order_products.append(order_product.product.name)
+            restaurant_matches_count = {}
+            orders_restaurant = []
+            for restaurant_menu in restaurants_menu:
+                if not restaurant_menu.product.name in order_products:
+                    continue
+                matches_number = restaurant_matches_count.get(
+                    restaurant_menu.restaurant.name, 0
+                )
+                restaurant_matches_count[restaurant_menu.restaurant.name] = matches_number + 1
+                if not restaurant_matches_count[restaurant_menu.restaurant.name] == len(order_products):
+                    continue
+                calculated_distance = calculate_distance(
+                    restaurant_menu.restaurant, order.address, GEOCODER_API)
+                orders_restaurant.append(
+                    (restaurant_menu.restaurant.name, calculated_distance)
+                )
+            order.orders_restaurant = sorted(
+                orders_restaurant,
+                key=lambda restaurant: restaurant[1]
+            )
+        return self
 
 
 class Order(models.Model):

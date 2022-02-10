@@ -1,7 +1,6 @@
 import requests
 
 from datetime import datetime
-from dotenv import load_dotenv
 from geopy import distance
 from annoying.functions import get_object_or_None
 
