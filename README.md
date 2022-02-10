@@ -47,7 +47,8 @@ python -m venv venv
 - Windows: `.\venv\Scripts\activate`
 - MacOS/Linux: `source venv/bin/activate`
 
-Получите API ключ в [кабинете разработчика](https://developer.tech.yandex.ru/services/),
+Для того чтобы скрипт подсчитал расстояние между рестораном и адресом доставки, необходимо получить их координаты.
+Для этого получите API ключ в [кабинете разработчика](https://developer.tech.yandex.ru/services/),
 в корне проекта создайте файл `.env`, создайте и заполните следующую переменную окружения:
 ```
 GEOCODER_API=''
