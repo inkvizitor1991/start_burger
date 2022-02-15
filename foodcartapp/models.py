@@ -104,10 +104,10 @@ class Product(models.Model):
 
 class CostQuerySet(models.QuerySet):
     def count_price(self):
-        total_price = self.annotate(
-            total_price=Sum(F('order_products__quantity') * F(
-                'order_products__fixed_price')))
-        return total_price
+        return self.annotate(
+            total_price=Sum(
+                F('order_products__quantity') * F('order_products__fixed_price'))
+        )
 
     def add_restaurants_orders(self, restaurants_menu):
         for order in self:
@@ -191,8 +191,7 @@ class Order(models.Model):
         db_index=True
     )
     comment = models.TextField(
-        'Комментарий',
-        max_length=200,
+        'Комментарий'
     )
     registered_at = models.DateTimeField(
         'Дата оформления заказа',

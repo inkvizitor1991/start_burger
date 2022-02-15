@@ -39,16 +39,16 @@ def calculate_distance(restaurant, address, apikey):
         except CoordinatesError:
             print('Не удалось высчитать координаты.')
             return None
-        if order_coords is None:
+        if order_coords:
+            order_lon, order_lat = order_coords
+            Coordinates.objects.create(
+                launch_geocoder_date=datetime.now(),
+                address=address,
+                lat=order_lat,
+                lon=order_lon,
+            )
+        else:
             return None
-
-        order_lon, order_lat = order_coords
-        Coordinates.objects.create(
-            launch_geocoder_date=datetime.now(),
-            address=address,
-            lat=order_lat,
-            lon=order_lon,
-        )
     else:
         restaurant_coords = restaurant.lat, restaurant.lon
         order_coords = coordinates.lat, coordinates.lon

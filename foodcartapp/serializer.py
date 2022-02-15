@@ -4,14 +4,14 @@ from .models import Order, OrderProduct
 
 
 
-class ParticipantSerializer(ModelSerializer):
+class OrderProductSerializer(ModelSerializer):
     class Meta:
         model = OrderProduct
         fields = ['product', 'quantity', 'fixed_price']
 
 
-class ApplicationSerializer(ModelSerializer):
-    products = ParticipantSerializer(many=True, allow_empty=False, write_only=True)
+class OrderSerializer(ModelSerializer):
+    products = OrderProductSerializer(many=True, allow_empty=False, write_only=True)
 
     class Meta:
         model = Order

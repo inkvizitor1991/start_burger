@@ -5,7 +5,7 @@ from django.templatetags.static import static
 from django.db import transaction
 
 from .models import Product, Order, OrderProduct
-from .serializer import ApplicationSerializer
+from .serializer import OrderSerializer
 
 
 def banners_list_api(request):
@@ -63,7 +63,7 @@ def product_list_api(request):
 @transaction.atomic
 @api_view(['POST'])
 def register_order(request):
-    serializer = ApplicationSerializer(data=request.data)
+    serializer = OrderSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     person_order = serializer.validated_data
 
@@ -75,7 +75,7 @@ def register_order(request):
     )
 
     order_products = [
-        OrderProduct.objects.create(
+        OrderProduct(
             order=order,
             product=product['product'],
             quantity=product['quantity'],
