@@ -79,7 +79,7 @@ def register_order(request):
             order=order,
             product=product['product'],
             quantity=product['quantity'],
-            fixed_price=product['fixed_price']
+            fixed_price=product['product'].fixed_price
         )
         for product in person_order['products']
     ]
