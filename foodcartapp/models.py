@@ -191,7 +191,8 @@ class Order(models.Model):
         db_index=True
     )
     comment = models.TextField(
-        'Комментарий'
+        'Комментарий',
+        blank=True
     )
     registered_at = models.DateTimeField(
         'Дата оформления заказа',
