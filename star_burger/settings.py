@@ -1,5 +1,6 @@
 import os
 import dj_database_url
+import rollbar
 
 from git import Repo
 from environs import Env
@@ -132,6 +133,7 @@ local_branch = local_repo.active_branch.name
 ROLLBAR = {
     'access_token': env('ROLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
-    'branch': local_branch,
     'root': BASE_DIR,
 }
+
+rollbar.init(**ROLLBAR)
