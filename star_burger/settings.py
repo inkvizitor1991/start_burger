@@ -1,6 +1,7 @@
 import os
 import dj_database_url
 
+from git import Repo
 from environs import Env
 
 
@@ -125,9 +126,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
     os.path.join(BASE_DIR, "bundles"),
 ]
+local_repo = Repo(path=BASE_DIR)
+local_branch = local_repo.active_branch.name
 
 ROLLBAR = {
     'access_token': env('ROLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
+    'branch': local_branch,
     'root': BASE_DIR,
 }
