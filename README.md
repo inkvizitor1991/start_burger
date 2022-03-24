@@ -144,6 +144,11 @@ parcel build bundles-src/index.js --dist-dir bundles --public-url="./"
 - `ALLOWED_HOSTS` — [см. документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts)
 - `GEOCODER_API` — `Yandex geocoder API`, получить ключ можно в [кабинете разработчика](https://developer.tech.yandex.ru/services/).
 - `ROLLBAR_TOKEN` — `система логирования`, для того чтобы получить токен зарегистрируйтесь на [Rollbar](https://rollbar.com/).
+- `DATABASE_URL` — `настройки доступа к бд`, заполните данный URL своими данными `postgres://USER:PASSWORD@HOST:PORT/NAME', где:
+  - `USER` — пользователь бд.
+  - `PASSWORD` — пароль бд.
+  - `NAME` — имя бд.
+
 ## Цели проекта
 
 Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org). За основу был взят код проекта [FoodCart](https://github.com/Saibharath79/FoodCart).
