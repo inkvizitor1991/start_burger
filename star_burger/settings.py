@@ -130,7 +130,6 @@ ROLLBAR = {
     'access_token': os.environ.get('ROLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
     'branch': local_branch,
-    'root': BASE_DIR,
 }
 
 rollbar.init(**ROLLBAR)

@@ -145,3 +145,4 @@ test.py
 123.py
 124.py
 .parcel-cache
+db.json
