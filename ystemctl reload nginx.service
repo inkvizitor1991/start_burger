@@ -1,0 +1,10 @@
+[0;1;32m●[0m starburger.service - starburger
+     Loaded: loaded (/etc/systemd/system/starburger.service; disabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Sun 2022-03-27 17:06:05 UTC; 164ms ago
+   Main PID: 1278 (python3.8)
+      Tasks: 1 (limit: 496)
+     Memory: 996.0K
+     CGroup: /system.slice/starburger.service
+             └─1278 /opt/start_burger/venv/bin/python3.8 /opt/start_burger/venv/bin/gunicorn -w 3 -b 127.0.0.1:8081 star_burger.wsgi:application
+
+Mar 27 17:06:05 pure-trandal systemd[1]: Started starburger.
