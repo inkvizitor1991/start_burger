@@ -4,13 +4,21 @@
     "@babel/preset-react": "^7.16.7",
     "core-js": "^3.21.1",
     "lodash": "^4.17.21",
+<<<<<<< HEAD
+=======
+    "parcel": "^2.4.0",
+>>>>>>> bcdf35ad6fc462b6bc7616d06384df45f20505c8
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.1",
     "react-dom": "^17.0.2",
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@babel/core": "^7.17.8",
     "parcel": "^2.4.0"
+=======
+    "@babel/core": "^7.17.8"
+>>>>>>> bcdf35ad6fc462b6bc7616d06384df45f20505c8
   }
 }
