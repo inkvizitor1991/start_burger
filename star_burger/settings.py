@@ -10,7 +10,7 @@ env = Env()
 env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 GEOCODER_API = os.environ.get('GEOCODER_API')
 
 SECRET_KEY = env('SECRET_KEY', 'etirgvonenrfnoerngorenogneongg334g')
@@ -109,7 +109,6 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 
 USE_L10N = True
-
 USE_TZ = True
 
 STATIC_URL = '/static/'
@@ -123,13 +122,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
     os.path.join(BASE_DIR, "bundles"),
 ]
+
 local_repo = Repo(path=BASE_DIR)
 local_branch = local_repo.active_branch.name
 
 ROLLBAR = {
-    'access_token': env('ROLLBAR_TOKEN'),
+    'access_token': os.environ.get('ROLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
-    'root': BASE_DIR,
+    'branch': local_branch,
 }
 
 rollbar.init(**ROLLBAR)

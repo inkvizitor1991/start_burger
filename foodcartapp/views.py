@@ -9,7 +9,6 @@ from .serializer import OrderSerializer
 
 
 def banners_list_api(request):
-    # FIXME move data to db?
     return JsonResponse([
         {
             'title': 'Burger',
